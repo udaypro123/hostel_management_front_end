@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Paper,
   Typography,
@@ -15,7 +14,7 @@ import {
   TableRow,
   Chip
 } from '@mui/material';
-import { Grid } from '@mui/system';
+import { Grid } from '@mui/material';
 import {
   Home as HomeIcon,
   Person as PersonIcon,
@@ -102,7 +101,7 @@ const Dashboard: React.FC = () => {
       {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         {stats.map((stat, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
+          <Grid key={index}>
             <Card elevation={2}>
               <CardContent>
                 <Box display="flex" alignItems="center" justifyContent="space-between">
@@ -135,7 +134,7 @@ const Dashboard: React.FC = () => {
 
       <Grid container spacing={3}>
         {/* Hostel Occupancy */}
-        <Grid item xs={12} md={6}>
+        <Grid >
           <Paper elevation={2} sx={{ p: 3 }}>
             <Typography variant="h6" gutterBottom fontWeight="bold">
               Hostel Occupancy
@@ -172,7 +171,7 @@ const Dashboard: React.FC = () => {
         </Grid>
 
         {/* Recent Announcements */}
-        <Grid item xs={12} md={6}>
+        <Grid >
           <Paper elevation={2} sx={{ p: 3 }}>
             <Typography variant="h6" gutterBottom fontWeight="bold">
               Recent Announcements
@@ -227,7 +226,7 @@ const Dashboard: React.FC = () => {
         </Grid>
 
         {/* Quick Actions */}
-        <Grid item xs={12}>
+        <Grid >
           <Paper elevation={2} sx={{ p: 3 }}>
             <Typography variant="h6" gutterBottom fontWeight="bold">
               Quick Actions
@@ -239,7 +238,7 @@ const Dashboard: React.FC = () => {
                 { title: 'Room Management', icon: <RoomIcon />, color: '#f57c00' },
                 { title: 'Generate Report', icon: <TrendingUp />, color: '#2e7d32' }
               ].map((action, index) => (
-                <Grid item xs={12} sm={6} md={3} key={index}>
+                <Grid  key={index}>
                   <Card 
                     sx={{ 
                       cursor: 'pointer',

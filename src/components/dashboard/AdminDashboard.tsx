@@ -77,6 +77,8 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
       console.log("totalcapicity", totalcapicity)
       setTotalCapacity(totalcapicity)
       setHostels(response.data);
+      setAllRequest([]);
+      setPaginationModel({ page: 0, pageSize: 10 })
     } catch (error) {
       console.error('Error fetching hostels:', error);
     } finally {
@@ -138,7 +140,7 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
       const response = await getAllRooms(page, pageSize);
       console.log('Fetched rooms:', response.data);
       let objdata: any = []
-      let data: any = response?.data?.map((room: any) => {
+      response?.data?.map((room: any) => {
         let obj = {
           _id: room?._id,
           roomNumber: room?.roomNumber,

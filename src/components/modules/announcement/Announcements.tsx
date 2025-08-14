@@ -3,7 +3,6 @@ import {
   Typography,
   Box,
   Button,
-  Alert,
   Card,
   CardContent,
 } from '@mui/material';
@@ -24,8 +23,6 @@ const Announcements: React.FC = () => {
 
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false);
-  const [success, setSuccess] = useState('');
-  const [error, setError] = useState('');
   const [announceMentdata, setAnnounceMentdata] = useState<any>([]);
   const [openDeleteModel, setOpenDeleteModel] = useState<boolean>(false);
   const [deleteAnnouncementID, setDeleteAnnouncementID] = useState<string>("");
@@ -52,7 +49,6 @@ const Announcements: React.FC = () => {
       })
       console.log("newobjnewobj", obj)
       setAnnounceMentdata(obj)
-      // enqueueSnackbar("fetched Announcement successfully ", { variant: "success" })
       setIsLoading(false)
     } catch (error) {
       enqueueSnackbar("Error while fetching Announcement", { variant: "error" })
@@ -166,18 +162,6 @@ const Announcements: React.FC = () => {
           New Announcement
         </Button>
       </Box>
-
-      {success && (
-        <Alert severity="success" sx={{ mb: 3 }}>
-          {success}
-        </Alert>
-      )}
-
-      {error && (
-        <Alert severity="error" sx={{ mb: 3 }}>
-          {error}
-        </Alert>
-      )}
 
       {/* Announcements List */}
       <Card elevation={2}>

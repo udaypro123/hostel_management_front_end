@@ -78,7 +78,7 @@ const AddDegree: React.FC = () => {
       setTimeout(() => {
         navigate('/degrees');
       }, 500);
-    } catch (error) {
+    } catch (error:any) {
       console.log("response", error)
       const errorMessage = error?.message || 'Something went wrong';
       enqueueSnackbar(`${errorMessage}`, { variant: 'error' });

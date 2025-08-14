@@ -25,7 +25,6 @@ import {
   Dashboard as DashboardIcon,
   Home as HomeIcon,
   MeetingRoom as RoomIcon,
-  AccountCircle,
   Logout,
   Settings,
   SupervisorAccount,

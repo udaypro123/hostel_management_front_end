@@ -3,7 +3,7 @@ import { Box, Container } from '@mui/material';
 import HostelList from './HostelList';
 import AddHostel from './hostel/AddHostel';
 
-type ViewMode = 'list' | 'add' | 'edit';
+type ViewMode = 'list' | 'add' | 'edit' | 'details';
 
 interface HostelComponentState {
   mode: ViewMode;
@@ -25,25 +25,6 @@ const HostelComponent: React.FC = () => {
   const handleAddHostel = () => {
     setState({
       mode: 'add'
-    });
-  };
-
-  const handleEditHostel = (hostelId: string) => {
-    setState({
-      mode: 'edit',
-      selectedHostelId: hostelId
-    });
-  };
-
-  const handleDeleteHostel = (hostelId: string) => {
-    // Handle delete logic here
-    console.log('Delete hostel:', hostelId);
-    // You can add a confirmation dialog and actual delete API call
-  };
-
-  const handleBackToList = () => {
-    setState({
-      mode: 'list'
     });
   };
 

@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Typography,
   Box,
@@ -15,7 +15,6 @@ import {
   Select,
 } from '@mui/material';
 import { ArrowBack, Person as PersonIcon, Save as SaveIcon } from '@mui/icons-material';
-import { createWarden, updateWarden } from '../../auth/api/wardenApi';
 import { enqueueSnackbar } from 'notistack';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getAllRooms, getHostels } from '../../auth/api/hostelApi';
@@ -56,6 +55,7 @@ const AddStudent: React.FC = () => {
       const response = await getHostels();
       console.log('Fetched hostels:', response.data);
       setHostels(response.data);
+      setPaginationModel({ page: 0, pageSize: 10 })
     } catch (error) {
       console.error('Error fetching hostels:', error);
     } finally {
@@ -74,7 +74,7 @@ const AddStudent: React.FC = () => {
       const response = await getAllDegrees(page, pageSize);
       console.log('Fetched degrees:', response.data);
       let objdata: any = []
-      let data: any = response?.data?.map((degree: any) => {
+      response?.data?.map((degree: any) => {
         let obj = {
           _id: degree?._id,
           degreeName: degree?.degreeName,
@@ -104,7 +104,7 @@ const AddStudent: React.FC = () => {
       const response = await getAllRooms(page, pageSize);
       console.log('Fetched rooms:', response.data);
       let objdata: any = []
-      let data: any = response?.data?.map((room: any) => {
+       response?.data?.map((room: any) => {
         let obj = {
           _id: room?._id,
           roomNumber: room?.roomNumber,
@@ -221,8 +221,10 @@ const AddStudent: React.FC = () => {
         joiningDate: Date || null,
         gender: ""
       });
+
+      console.log("response", response)
       navigate('/students');
-    } catch (error) {
+    } catch (error:any) {
       console.error('Error adding warden:', error.response.data);
       enqueueSnackbar(`${error.response.data.message}. Please try again`, { variant: 'error' });
     } finally {
@@ -457,7 +459,7 @@ const AddStudent: React.FC = () => {
                       onChange={handleChange}
                       disabled={isLoading}
                     >
-                      {hostels.map((hostel: any, index: any) => (
+                      {hostels.map((hostel: any) => (
                         <MenuItem key={hostel?._id} value={hostel?._id}>
                           {hostel?.hostelName}
                         </MenuItem>
@@ -490,7 +492,7 @@ const AddStudent: React.FC = () => {
                       onChange={handleChange}
                       disabled={isLoading}
                     >
-                      {rooms.map((room: any, index: any) => (
+                      {rooms.map((room: any) => (
                         <MenuItem key={room?._id} value={room?._id}>
                           {room?.roomNumber}
                         </MenuItem>

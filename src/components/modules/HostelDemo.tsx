@@ -57,9 +57,6 @@ const HostelDemo: React.FC = () => {
       <Box sx={{ minHeight: 'calc(100vh - 64px)', bgcolor: 'background.default' }}>
         {currentView === 'dashboard' ? (
           <HostelDashboard
-            onViewAllHostels={handleViewAllHostels}
-            onAddHostel={handleAddHostel}
-            onViewHostelDetails={handleViewHostelDetails}
           />
         ) : (
           <HostelComponent />

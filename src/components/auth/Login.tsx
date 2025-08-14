@@ -7,7 +7,6 @@ import {
     Typography,
     Box,
     Link,
-    Alert,
     CircularProgress,
     IconButton,
     InputAdornment
@@ -121,6 +120,18 @@ const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
                     }}
                 >
                     <LockOutlined sx={{ fontSize: 30, color: 'white' }} />
+                </Box>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        mb: 3,
+                        p: 2,
+                        backgroundColor: 'primary.main',
+                        borderRadius: '50%'
+                    }}
+                >
+                    <Typography sx={{color:"red"}}> {error}</Typography>
                 </Box>
 
                 <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>

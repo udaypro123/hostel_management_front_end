@@ -9,12 +9,7 @@ import StudentDashboard from './studentDashBoard';
 
 
 const HostelDashboard: React.FC<{}> = () => {
-  // const theme = useTheme();
-  // const navigate = useNavigate()
-  // const [stats, setStats] = useState<DashboardStats | null>(null);
-  // const [recentHostels, setRecentHostels] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const [hostels, setHostels] = useState<any[]>([]);
   let data = localStorage.getItem('user') || '{}';
   const user = JSON.parse(data);
   console.log('User data:', user);

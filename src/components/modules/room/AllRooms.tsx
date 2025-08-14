@@ -170,7 +170,7 @@ export default function AllRooms() {
     return (
         <>
             <Grid container spacing={2} sx={{ padding: 2, backgroundColor: theme.palette.background.paper, }}>
-                <Grid item xs={12} md={12} sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: theme.palette.background.paper, padding: 2, borderRadius: 1 }}>
+                <Grid sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: theme.palette.background.paper, padding: 2, borderRadius: 1 }}>
                     <Typography variant="h4" gutterBottom>
                         All Rooms
                     </Typography>

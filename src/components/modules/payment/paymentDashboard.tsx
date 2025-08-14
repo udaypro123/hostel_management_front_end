@@ -145,7 +145,12 @@ const PaymentDashboard: React.FC<HostelDashboardProps> = ({ }) => {
         try {
             const data = await getPaymentByID(user.id)
             console.log("afamdscsdc", data?.data)
-             let filterdata: any = data?.data?.filter((item: any) => item?.studentId?._id == user?.id)
+            let filterdata: any;
+            if (user.role !== "admin") {
+                filterdata = data?.data?.filter((item: any) => item?.studentId?._id == user?.id)
+            }else{
+                filterdata=data?.data
+            }
             let amount: any = 0
             const rows = filterdata?.map((item: any, index: number) => {
                 amount += item?.amountPaid
@@ -248,7 +253,7 @@ const PaymentDashboard: React.FC<HostelDashboardProps> = ({ }) => {
                         backgroundClip: 'text'
                     }}
                 >
-                    {user?.role == "student" ? "  Pay Your Hostel Fee!" : "All Students Recieve Payment"} 
+                    {user?.role == "student" ? "  Pay Your Hostel Fee!" : "All Students Recieve Payment"}
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
                     {user?.role == "student" ? "pay your hostel fee and make live easy." : "Mangage Student payments"}
@@ -343,6 +348,7 @@ const PaymentDashboard: React.FC<HostelDashboardProps> = ({ }) => {
                 </Grid>
                 <DataGrid rows={paymentRows} columns={columns} />
             </Box>
+
             {
                 openModal && <ReceiptModal receiptHtml={receiptHtml} handleOpen={handleOpen} handleClose={handleClose} open={open} />
             }

@@ -5,7 +5,6 @@ import {
   Typography,
   Container,
   CircularProgress,
-  Alert,
   Fab,
   Fade,
   Backdrop,
@@ -13,7 +12,6 @@ import {
   Paper,
   Stack,
   Button,
-  Skeleton
 } from '@mui/material';
 import {
   Add as AddIcon,
@@ -21,9 +19,6 @@ import {
   FilterList as FilterIcon
 } from '@mui/icons-material';
 import HostelCard from './HostelCard';
-import HostelSearch from './HostelSearch';
-import { getHostels, searchHostels } from '../auth/api/hostelApi';
-import type { HostelFilters } from '../auth/api/hostelApi';
 
 interface HostelListProps {
   onAddHostel?: () => void;
@@ -41,52 +36,22 @@ const HostelList: React.FC<HostelListProps> = ({
   const theme = useTheme();
   const [hostels, setHostels] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [filters, setFilters] = useState<HostelFilters>({});
   const [showFilters, setShowFilters] = useState(false);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [refreshing, setRefreshing] = useState(false);
-
   // Load favorites from localStorage
   useEffect(() => {
+    setLoading(true)
+    setHostels([])
     const savedFavorites = localStorage.getItem('favoriteHostels');
     if (savedFavorites) {
       setFavorites(new Set(JSON.parse(savedFavorites)));
     }
   }, []);
 
-  const loadHostels = async (searchFilters?: HostelFilters) => {
-    try {
-      setError(null);
-      const response = searchFilters && Object.keys(searchFilters).length > 0
-        ? await searchHostels(searchFilters)
-        : await getHostels();
-
-      if (response.success) {
-        setHostels(response.data);
-      } else {
-        setError('Failed to load hostels');
-      }
-    } catch (err: any) {
-      setError(err.message || 'An error occurred while loading hostels');
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
-  };
-
-  useEffect(() => {
-    loadHostels(filters);
-  }, [filters]);
-
-  const handleSearch = (searchFilters: HostelFilters) => {
-    setFilters(searchFilters);
-    setLoading(true);
-  };
 
   const handleAddHostel = () => {
     setRefreshing(true);
-    loadHostels(filters);
   };
 
   const handleToggleFavorite = (hostelId: string) => {
@@ -113,25 +78,6 @@ const HostelList: React.FC<HostelListProps> = ({
       navigator.clipboard.writeText(window.location.href + `/hostels/${hostelId}`);
     }
   };
-
-  // const LoadingSkeleton = () => (
-  //   <Grid container spacing={3}>
-  //     {[...Array(6)].map((_, index) => (
-  //       <Grid item xs={12} sm={6} md={4} key={index}>
-  //         <Paper sx={{ p: 2, height: 400 }}>
-  //           <Skeleton variant="rectangular" height={200} sx={{ mb: 2 }} />
-  //           <Skeleton variant="text" height={32} sx={{ mb: 1 }} />
-  //           <Skeleton variant="text" height={24} sx={{ mb: 2 }} />
-  //           <Stack spacing={1}>
-  //             <Skeleton variant="text" height={20} />
-  //             <Skeleton variant="text" height={20} />
-  //             <Skeleton variant="rectangular" height={40} />
-  //           </Stack>
-  //         </Paper>
-  //       </Grid>
-  //     ))}
-  //   </Grid>
-  // );
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
@@ -172,13 +118,6 @@ const HostelList: React.FC<HostelListProps> = ({
           </Stack>
         </Box>
 
-        {/* Search and Filters */}
-        <Fade in={showFilters}>
-          <Box sx={{ mb: 3 }}>
-            <HostelSearch onSearch={handleSearch} />
-          </Box>
-        </Fade>
-
         {/* Results Summary */}
         {!loading && (
           <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
@@ -216,7 +155,7 @@ const HostelList: React.FC<HostelListProps> = ({
       ) : (
         <Grid container spacing={3}>
           {hostels.map((hostel) => (
-            <Grid item xs={12} sm={6} md={4} key={hostel._id}>
+            <Grid key={hostel._id}>
               <Fade in timeout={300}>
                 <Box>
                   <HostelCard

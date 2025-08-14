@@ -1,5 +1,5 @@
-import { ArrowBack, LocationOn, SchoolOutlined } from '@mui/icons-material';
-import { Avatar, Button, Chip, Paper, Typography } from '@mui/material';
+import { ArrowBack, LocationOn} from '@mui/icons-material';
+import { Avatar, Button,  Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import {useLocation } from 'react-router-dom';
 import TabIcon from '@mui/icons-material/Tab';

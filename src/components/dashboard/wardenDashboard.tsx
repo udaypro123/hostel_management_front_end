@@ -13,21 +13,11 @@ import { getHostels } from '../auth/api/hostelApi';
 import { useNavigate } from 'react-router-dom';
 import { HostelLoader } from '../../utils/hostelLoader';
 import { StatCard } from '../../utils/StatCard';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { getStudents } from '../auth/api/studentApi';
 import { getWardenById } from '../auth/api/wardenApi';
 import GroupIcon from '@mui/icons-material/Group';
 import AddHomeIcon from '@mui/icons-material/AddHome';
 import Man3Icon from '@mui/icons-material/Man3';
-
-interface DashboardStats {
-  totalHostels: number;
-  totalCapacity: number;
-  totalOccupancy: number;
-  averageOccupancyRate: number;
-  activeHostels: number;
-  totalRevenue: number;
-}
 
 interface HostelDashboardProps {
   onViewAllHostels?: () => void;
@@ -38,14 +28,13 @@ interface HostelDashboardProps {
 const WardenDashboard: React.FC<HostelDashboardProps> = ({ }) => {
   const theme = useTheme();
   const navigate = useNavigate()
-  const [stats, setStats] = useState<DashboardStats | null>(null);
   const [wardendata, setWardendata] = useState<any>();
   const [studentCount, setStudentCount] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
   const [hostels, setHostels] = useState<any[]>([]);
   let data = localStorage.getItem('user') || '{}';
   const user = JSON.parse(data);
-  console.log('User data:', user);
+  console.log('User data:', user, hostels[0]);
 
 
   const fetchHostels = async () => {
@@ -111,7 +100,6 @@ const WardenDashboard: React.FC<HostelDashboardProps> = ({ }) => {
               value={wardendata?.hostelName || ""}
               icon={<Home />}
               color={theme.palette.primary.main}
-            // subtitle={`${stats?.activeHostels || 0} active`}
             />
           </Box>
         </Fade>
@@ -123,7 +111,6 @@ const WardenDashboard: React.FC<HostelDashboardProps> = ({ }) => {
               value={wardendata?.type || ""}
               icon={<Man3Icon />}
               color={theme.palette.primary.light}
-            // progress={stats?.averageOccupancyRate || 0}
             />
           </Box>
         </Fade>
@@ -134,7 +121,6 @@ const WardenDashboard: React.FC<HostelDashboardProps> = ({ }) => {
               value={wardendata?.rooms?.length || 0}
               icon={<AddHomeIcon />}
               color={theme.palette.success.light}
-              progress={stats?.averageOccupancyRate || 0}
             />
           </Box>
         </Fade>
@@ -145,7 +131,6 @@ const WardenDashboard: React.FC<HostelDashboardProps> = ({ }) => {
               value={studentCount || 0}
               icon={<GroupIcon />}
               color={theme.palette.warning.dark}
-              progress={stats?.averageOccupancyRate || 0}
             />
           </Box>
         </Fade>

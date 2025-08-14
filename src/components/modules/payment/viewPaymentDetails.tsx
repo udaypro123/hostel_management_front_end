@@ -1,11 +1,10 @@
-import { ArrowBack, LocationOn, } from '@mui/icons-material';
+import { ArrowBack, } from '@mui/icons-material';
 import { Avatar, Button, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useLocation } from 'react-router-dom';
 import TabIcon from '@mui/icons-material/Tab';
 import SensorOccupiedIcon from '@mui/icons-material/SensorOccupied';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
-import HeightIcon from '@mui/icons-material/Height';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
 export default function PaymentDetailsPage() {

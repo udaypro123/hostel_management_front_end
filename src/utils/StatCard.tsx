@@ -1,5 +1,5 @@
 import { Avatar, Card, CardContent, LinearProgress, Typography } from "@mui/material";
-import { Box, useTheme } from "@mui/system";
+import { Box } from "@mui/system";
 
 
 
@@ -11,7 +11,7 @@ export const StatCard: React.FC<{
     // subtitle?: string;
     progress?: number;
   }> = ({ title, value, icon, color, progress }) => {
-    const theme:any = useTheme();
+    // const theme:any = useTheme();
 
     return (
       <Card

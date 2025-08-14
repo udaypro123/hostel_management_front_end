@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Paper,
   Typography,
   Box,
   TextField,
   Button,
   Alert,
-  Card,
-  CardContent,
   Avatar,
   CircularProgress,
   FormControl,
@@ -238,7 +235,7 @@ const AddRoom: React.FC = () => {
                 onChange={(e: any) => handleChange(e)}
                 disabled={isLoading}
               >
-                {hostels.map((hostel: any, index: number) => (
+                {hostels.map((hostel: any) => (
                   <MenuItem key={hostel?._id} value={hostel?._id}>
                     {hostel?.hostelName}
                   </MenuItem>

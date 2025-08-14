@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import {
   Typography,
   Box,
@@ -132,8 +132,9 @@ const AddWarden: React.FC = () => {
         joiningDate: '',
         gender:"",
       });
+      console.log("response", response)
       navigate('/wardens');
-    } catch (error) {
+    } catch (error:any) {
       console.error('Error adding warden:', error.response.data);
       enqueueSnackbar(`${error.response.data.message}. Please try again`, { variant: 'error' });
     } finally {

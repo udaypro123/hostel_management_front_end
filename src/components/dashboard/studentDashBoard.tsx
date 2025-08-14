@@ -31,8 +31,6 @@ interface HostelDashboardProps {
 const StudentDashboard: React.FC<HostelDashboardProps> = ({ }) => {
     const theme = useTheme();
     const navigate = useNavigate()
-    // const [stats, setStats] = useState<DashboardStats | null>(null);
-    //   const [recentHostels, setRecentHostels] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [hostels, setHostels] = useState<any>();
     const [paidAmount, setPaidAmount] = useState<any>(0);
@@ -69,7 +67,7 @@ const StudentDashboard: React.FC<HostelDashboardProps> = ({ }) => {
             console.log("afamdscsdc", data?.data)
             let amount: any = 0
             let filterdata: any = data?.data?.filter((item: any) => item?.studentId?._id == user.id)
-            const rows = filterdata?.map((item: any, index: number) => {
+            filterdata?.map((item: any, index: number) => {
                 amount += item?.amountPaid
                 return {
                     id: index + 1,

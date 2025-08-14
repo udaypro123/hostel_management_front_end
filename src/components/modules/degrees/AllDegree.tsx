@@ -43,7 +43,7 @@ export default function AllDegree() {
       const response = await getAllDegrees(page, pageSize);
       console.log('Fetched degrees:', response.data);
       let objdata: any = []
-      let data: any = response?.data?.map((degree: any) => {
+      response?.data?.map((degree: any) => {
         let obj = {
           _id: degree?._id,
           degreeName: degree?.degreeName,
@@ -75,14 +75,6 @@ export default function AllDegree() {
     navigate('/addDegree', { state: { isEdit: true, degreeData } });
   };
 
-  // const handaleView = (route: string, hosteldata?: any) => {
-  //   console.log('Navigating to:', route, 'with data:', hosteldata);
-  //   // Option 2: Use React Router with state (when you setup proper routing)
-  //   navigate(route, { state: { hosteldata } });
-
-  // };
-
-
   const deleteDegreeData = async (degreeData?: any) => {
     setDeleteDegreeID(degreeData?._id);
     setOpenDeleteModel(true);
@@ -96,7 +88,7 @@ export default function AllDegree() {
       fetAllDegrees(paginationModel.page, paginationModel.pageSize);
       setOpenDeleteModel(false); // Refresh the list after deletion
       enqueueSnackbar("degree deleted successfully", {variant:"success"})
-    } catch (error) {
+    } catch (error:any) {
       console.error('Error deleting hostel:', error);
       enqueueSnackbar(error.message, {variant:"error"})
     }
@@ -114,16 +106,6 @@ export default function AllDegree() {
       flex: 1,
       renderCell: (params: any) => (
         <Box sx={{ display: 'flex', gap: 1 }}>
-{/* 
-          <VisibilityIcon
-            fontSize="small"
-            color="primary"
-            sx={{ cursor: 'pointer' }}
-            onClick={() => {
-              console.log('Hostel data:', params.row);
-              handaleView('/viewDegree', params.row);
-            }}
-          /> */}
           <EditIcon
             fontSize="small"
             color="primary"
@@ -160,7 +142,7 @@ export default function AllDegree() {
   return (
     <>
       <Grid container spacing={2} sx={{ padding: 2, backgroundColor: theme.palette.background.paper, }}>
-        <Grid item xs={12} md={12} sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: theme.palette.background.paper, padding: 2, borderRadius: 1 }}>
+        <Grid sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: theme.palette.background.paper, padding: 2, borderRadius: 1 }}>
           <Typography variant="h4" gutterBottom>
             All Degree
           </Typography>
