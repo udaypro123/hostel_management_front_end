@@ -16,7 +16,7 @@ import Grid from '@mui/material/Grid';
 import { ArrowBack, MeetingRoom as RoomIcon, Save as SaveIcon } from '@mui/icons-material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { enqueueSnackbar } from 'notistack';
-import { getHostels, updateRoomsToHostel } from '../../auth/api/hostelApi';
+import { getHostels} from '../../auth/api/hostelApi';
 import { HostelLoader } from '../../../utils/hostelLoader';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { createAnnouncement, updateAnnouncement } from '../../auth/api/announcementApi';
@@ -206,7 +206,7 @@ const AddAnnouncement: React.FC = () => {
                                 onChange={(e: any) => handleChange(e)}
                                 disabled={isLoading}
                             >
-                                {hostels.map((hostel: any, index: number) => (
+                                {hostels.map((hostel: any) => (
                                     <MenuItem key={hostel?._id} value={hostel?._id}>
                                         {hostel?.hostelName}
                                     </MenuItem>

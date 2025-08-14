@@ -46,7 +46,7 @@ export default function AllRooms() {
             const response = await getAllRooms(page, pageSize);
             console.log('Fetched rooms:', response.data);
             let objdata:any=[]
-            let data:any= response?.data?.map((room: any) => {
+            response?.data?.map((room: any) => {
                 let obj = {
                     _id: room?._id,
                     roomNumber: room?.roomNumber,

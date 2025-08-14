@@ -75,6 +75,7 @@ const AddDegree: React.FC = () => {
         degreeYear: null,
         departmentName: '',
       });
+      console.log("response", response)
       setTimeout(() => {
         navigate('/degrees');
       }, 500);

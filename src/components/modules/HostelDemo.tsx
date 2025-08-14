@@ -17,15 +17,6 @@ const HostelDemo: React.FC = () => {
     setCurrentView('dashboard');
   };
 
-  const handleAddHostel = () => {
-    setCurrentView('hostels');
-  };
-
-  const handleViewHostelDetails = (id: string) => {
-    console.log('View hostel details:', id);
-    setCurrentView('hostels');
-  };
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       {/* Navigation Bar */}
