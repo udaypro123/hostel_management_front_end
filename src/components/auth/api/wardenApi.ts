@@ -2,7 +2,7 @@ import axios from 'axios';
 import { CREATE_WARDEN, DELETE_WARDENS, GET_WARDENS, GET_WARDENS_ID, UPDATE_WARDENS } from './routes';
 
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true
 });
 
