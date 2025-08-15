@@ -32,6 +32,7 @@ import {
   Delete as DeleteIcon,
 } from '@mui/icons-material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import axios from 'axios';
 
 interface HostelDashboardProps {
   onViewAllHostels?: () => void;
@@ -55,11 +56,13 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
   const [rooms, setRooms] = useState<any[]>([]);
   const [announcement, setAnnouncement] = useState<any[]>([]);
   const [requests, setAllRequest] = useState<any[]>([]);
-  const paginationModel= { page: 0, pageSize: 10 }
+  const paginationModel = { page: 0, pageSize: 10 }
   const [openDeleteModel, setOpenDeleteModel] = useState<boolean>(false);
   const [deleteAnnouncementID, setDeleteAnnouncementID] = useState<string>("");
 
   let data = localStorage.getItem('user') || '{}';
+  const token = localStorage.getItem('token');
+  console.log('Sending token:', token);
   const user = JSON.parse(data);
   console.log('User data:', user);
 
@@ -179,7 +182,16 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
   const fetchAnnouncement = async () => {
     try {
       setLoading(true)
-      const announcedata = await getAnnouncement()
+      const announcedata = await getAnnouncement();
+      const getAnnounannouncedatacement = await axios.get(
+        'https://hostel-management-back-end-vsd4.vercel.app/api/announcement/getAllAnouncement',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      console.log("getAnnounannouncedatacement", getAnnounannouncedatacement)
       console.log("announcedata", announcedata)
       let obj: any = [];
       announcedata?.data?.map((item: any, index: number) => {
