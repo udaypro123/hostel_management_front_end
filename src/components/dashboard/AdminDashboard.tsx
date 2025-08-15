@@ -55,7 +55,7 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
   const [rooms, setRooms] = useState<any[]>([]);
   const [announcement, setAnnouncement] = useState<any[]>([]);
   const [requests, setAllRequest] = useState<any[]>([]);
-  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 });
+  const paginationModel= { page: 0, pageSize: 10 }
   const [openDeleteModel, setOpenDeleteModel] = useState<boolean>(false);
   const [deleteAnnouncementID, setDeleteAnnouncementID] = useState<string>("");
 
@@ -78,7 +78,6 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
       setTotalCapacity(totalcapicity)
       setHostels(response.data);
       setAllRequest([]);
-      setPaginationModel({ page: 0, pageSize: 10 })
     } catch (error) {
       console.error('Error fetching hostels:', error);
     } finally {

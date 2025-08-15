@@ -42,7 +42,7 @@ const AddStudent: React.FC = () => {
   const [rooms, setRooms] = useState<any[]>([]);
   // const [selectedHostel, setSelectedHostel] = useState('');
   // const [selectedRoom, setSelectedRoom] = useState('');
-  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 100 });
+  const paginationModel = { page: 0, pageSize: 100 }
   const [degrees, setDegrees] = useState<any[]>([]);
   const [error, setError] = useState('');
   console.log('Form Data:', formData);
@@ -55,7 +55,6 @@ const AddStudent: React.FC = () => {
       const response = await getHostels();
       console.log('Fetched hostels:', response.data);
       setHostels(response.data);
-      setPaginationModel({ page: 0, pageSize: 10 })
     } catch (error) {
       console.error('Error fetching hostels:', error);
     } finally {
