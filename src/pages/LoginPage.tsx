@@ -34,8 +34,9 @@ export default function LoginPage() {
             const response = await loginUser({ email, password });
             if (response.success) {
                 console.log("response", response)
-                localStorage.setItem('token', response.token);
-                localStorage.setItem('user', JSON.stringify(response.user));
+                localStorage.setItem("authUser", JSON.stringify(response.user));
+                localStorage.setItem("token", response.tokens.accessToken);
+                localStorage.setItem("refreshToken", response.tokens.refreshToken);
                 enqueueSnackbar('Login successful!', { variant: 'success' });
                 navigate('/dashboard');
             } else {
@@ -54,25 +55,25 @@ export default function LoginPage() {
     };
 
     return (
-        <Container component="main" maxWidth="sm" sx={{ 
-            minHeight: '100vh', 
-            display: 'flex', 
+        <Container component="main" maxWidth="sm" sx={{
+            minHeight: '100vh',
+            display: 'flex',
             alignItems: 'center',
             py: 3
         }}>
-            <Paper elevation={8} sx={{ 
-                p: 4, 
-                display: 'flex', 
-                flexDirection: 'column', 
+            <Paper elevation={8} sx={{
+                p: 4,
+                display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
                 width: '100%',
                 background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 color: 'white',
                 borderRadius: 3
             }}>
-                <Box sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
                     mb: 3,
                     flexDirection: 'column'
                 }}>
@@ -85,10 +86,10 @@ export default function LoginPage() {
                     </Typography>
                 </Box>
 
-                <Box sx={{ 
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)', 
-                    p: 4, 
-                    borderRadius: 2, 
+                <Box sx={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    p: 4,
+                    borderRadius: 2,
                     width: '100%',
                     color: 'text.primary'
                 }}>
@@ -150,9 +151,9 @@ export default function LoginPage() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ 
-                                mt: 3, 
-                                mb: 2, 
+                            sx={{
+                                mt: 3,
+                                mb: 2,
                                 py: 1.5,
                                 background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
                                 fontWeight: 'bold'
@@ -164,10 +165,10 @@ export default function LoginPage() {
                         <Box textAlign="center">
                             <Typography variant="body2">
                                 Don't have an account?{' '}
-                                <Link 
-                                    to="/signup" 
-                                    style={{ 
-                                        color: '#1976d2', 
+                                <Link
+                                    to="/signup"
+                                    style={{
+                                        color: '#1976d2',
                                         textDecoration: 'none',
                                         fontWeight: 'bold'
                                     }}
