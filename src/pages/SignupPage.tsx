@@ -54,9 +54,9 @@ export default function SignupPage() {
         setIsLoading(true);
 
         try {
-            const { confirmPassword, ...registrationData } = formData;
-            const response = await registerUser(registrationData);
             
+            const response = await registerUser(formData);
+        
             if (response.success) {
                 enqueueSnackbar('Registration successful! Please login.', { variant: 'success' });
                 navigate('/login');
