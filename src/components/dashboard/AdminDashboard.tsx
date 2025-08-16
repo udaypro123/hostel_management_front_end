@@ -32,7 +32,6 @@ import {
   Delete as DeleteIcon,
 } from '@mui/icons-material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import axios from 'axios';
 
 interface HostelDashboardProps {
   onViewAllHostels?: () => void;
@@ -183,15 +182,6 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
     try {
       setLoading(true)
       const announcedata = await getAnnouncement();
-      const getAnnounannouncedatacement = await axios.get(
-        'https://hostel-management-back-end-vsd4.vercel.app/api/announcement/getAllAnouncement',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-      console.log("getAnnounannouncedatacement", getAnnounannouncedatacement)
       console.log("announcedata", announcedata)
       let obj: any = [];
       announcedata?.data?.map((item: any, index: number) => {
