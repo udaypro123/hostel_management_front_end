@@ -51,3 +51,7 @@ export const CREATE_ANNOUNCEMENT= "/api/announcement/createAnnoucement"
 export const UPDATE_ANNOUNCEMENT= "/api/announcement/updateAnouncement"
 export const GET_ANNOUNCEMENT= "/api/announcement/getAllAnouncement"
 export const DELETE_ANNOUNCEMENT= "/api/announcement/deleteAnouncement"
+
+// CHATBOT API
+
+export const CHATBOT_API= '/api/ai/ask'

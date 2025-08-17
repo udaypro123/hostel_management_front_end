@@ -18,7 +18,8 @@ import {
   MenuItem,
   Divider,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  keyframes
 } from '@mui/material';
 import {
   Menu as MenuIcon,
@@ -38,8 +39,36 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Chatbot from '../../chatBot/chatBot';
 
 const drawerWidth = 240;
+const borderPulse = keyframes`
+  0% {
+    box-shadow: 0 0 0 0px rgba(238, 5, 255, 1);
+  }
+  20% {
+    box-shadow: 0 0 0 3px rgba(236, 55, 252, 1);
+  }
+  30% {
+    box-shadow: 0 0 0 6px rgba(244, 107, 254, 1);
+  }
+  45% {
+    box-shadow: 0 0 0 8px rgba(238, 125, 255, 1);
+  }
+  55% {
+    box-shadow: 0 0 0 10px rgba(254, 156, 247, 1);
+  }
+  65% {
+    box-shadow: 0 0 0 14px rgba(245, 172, 255, 1);
+  }
+  85% {
+    box-shadow: 0 0 0 18px rgba(243, 217, 252, 1);
+  }
+  100% {
+    box-shadow: 0 0 0 0px rgba(254, 244, 255, 1);
+  }
+`;
+
 
 interface SimpleLayoutProps {
   children: React.ReactNode;
@@ -54,6 +83,7 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(true);
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   // Get user data from localStorage
   let data = localStorage.getItem('user') || '{}';
@@ -94,6 +124,7 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({ children }) => {
     { text: 'Degrees', icon: <AccountBalanceIcon />, path: '/degrees', role: ["admin"] },
     { text: 'Announcements', icon: <CampaignIcon />, path: '/announcements', role: ["admin", "warden"] },
     { text: 'Request', icon: <HelpCenterIcon />, path: '/request', role: ['student', 'warden'] },
+    // { text: 'AI ChatBot', icon: <PsychologyIcon />, path: '/chatbot', role: ['admin', 'student', 'warden'] },
   ]?.filter((item: any) => item.role?.includes(user.role));
 
   console.log("menuItems", menuItems)
@@ -104,6 +135,14 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({ children }) => {
       setMobileOpen(false);
     }
   };
+
+  const handleChatbot = async () => {
+    setIsChatbotOpen(true)
+  }
+
+  const handleclose = async () => {
+    setIsChatbotOpen(false)
+  }
 
   const drawer = (
     <div>
@@ -147,11 +186,13 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({ children }) => {
           </ListItem>
         ))}
       </List>
+      <Divider />
+
     </div>
   );
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', }}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -216,19 +257,19 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({ children }) => {
           },
         }}
       >
-        <MenuItem onClick={handleProfileMenuClose} sx={{fontWeight:"bold"}}>
+        <MenuItem onClick={handleProfileMenuClose} sx={{ fontWeight: "bold" }}>
           {/* <AccountCircle sx={{ mr: 1 }} /> */}
           {user?.fullName || 'Profile'}
         </MenuItem>
-        <MenuItem onClick={handleProfileMenuClose} sx={{marginTop:2}} >
+        <MenuItem onClick={handleProfileMenuClose} sx={{ marginTop: 2 }} >
           <AccountCircleIcon sx={{ mr: 1 }} />
           View Profile
         </MenuItem>
-        <MenuItem onClick={handleProfileMenuClose} sx={{marginTop:1}}>
+        <MenuItem onClick={handleProfileMenuClose} sx={{ marginTop: 1 }}>
           <Brightness4Icon sx={{ mr: 1 }} />
           DarkMode
         </MenuItem>
-        <MenuItem onClick={handleProfileMenuClose} sx={{marginTop:1}}>
+        <MenuItem onClick={handleProfileMenuClose} sx={{ marginTop: 1 }}>
           <Settings sx={{ mr: 1 }} />
           Settings
         </MenuItem>
@@ -295,6 +336,34 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({ children }) => {
         <Toolbar />
         {children}
       </Box>
+
+      <Box
+        onClick={handleChatbot}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 5,
+          position:"fixed",
+          bottom:25,
+          right:30,
+        }}
+      >
+        <Box
+          sx={{
+            fontSize: 40,
+            borderRadius: "50%",
+            cursor: "pointer",
+            animation: `${borderPulse} 1.1s infinite ease-in-out`,
+            padding:.5
+          }}
+        >
+          🤖
+        </Box>
+      </Box>
+      {
+        isChatbotOpen && <Chatbot open={isChatbotOpen} handleclose={handleclose} />
+      }
     </Box>
   );
 };

@@ -32,6 +32,7 @@ import PaymentStatus from '../components/modules/payment/paymentStatus';
 import PaymentDetailsPage from '../components/modules/payment/viewPaymentDetails';
 import AddAnnouncement from '../components/modules/announcement/addAnnouncement';
 import AnnouncementDetailsPage from '../components/modules/announcement/viewAnnouncement';
+import Chatbot from '../chatBot/chatBot';
 
 // Loading Component
 const Loading = () => (
@@ -70,6 +71,10 @@ export default function AppRoutes() {
                 {/* Public Routes */}
                 <Route path="/login" element={<PublicRoute> <LoginPage /> </PublicRoute>} />
                 <Route path="/signup" element={<PublicRoute> <SignupPage /> </PublicRoute>} />
+
+                {/* chatbot Routes */}
+                <Route path="/chatbot" element={<ProtectedRoute>  <Chatbot />   </ProtectedRoute>}
+                />
 
                 {/* Protected Routes */}
                 <Route path="/dashboard" element={<ProtectedRoute>  <HostelDashboard />   </ProtectedRoute>}
