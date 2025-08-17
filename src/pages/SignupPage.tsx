@@ -54,9 +54,9 @@ export default function SignupPage() {
         setIsLoading(true);
 
         try {
-            
+
             const response = await registerUser(formData);
-        
+
             if (response.success) {
                 enqueueSnackbar('Registration successful! Please login.', { variant: 'success' });
                 navigate('/login');
@@ -72,30 +72,33 @@ export default function SignupPage() {
     };
 
     return (
-        <Container component="main" maxWidth="md" sx={{ 
-            minHeight: '100vh', 
-            display: 'flex', 
+        <Container component="main" maxWidth="md" sx={{
+            minHeight: '20vh',
+            height: "auto",
+            display: 'flex',
             alignItems: 'center',
-            py: 3
+            py: 3,
         }}>
-            <Paper elevation={8} sx={{ 
-                p: 4, 
-                display: 'flex', 
-                flexDirection: 'column', 
+            <Paper elevation={8} sx={{
+                p: 2,
+                display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
-                width: '100%',
+                width: '90%',
+                height: "auto",
                 background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 color: 'white',
-                borderRadius: 3
+                borderRadius: 3, 
+                margin:"auto"
             }}>
-                <Box sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    mb: 3,
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    mb: 2,
                     flexDirection: 'column'
                 }}>
-                    <Home sx={{ fontSize: 40, mb: 1, color: '#FFD700' }} />
-                    <Typography component="h1" variant="h4" fontWeight="bold" textAlign="center">
+                    <Home sx={{ fontSize: 36, mb: 1, color: '#FFD700' }} />
+                    <Typography component="h1" variant="h5" fontWeight="bold" textAlign="center">
                         Hostel Management
                     </Typography>
                     <Typography variant="body2" sx={{ mt: 1, opacity: 0.9 }}>
@@ -103,16 +106,16 @@ export default function SignupPage() {
                     </Typography>
                 </Box>
 
-                <Box sx={{ 
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)', 
-                    p: 4, 
-                    borderRadius: 2, 
+                <Box sx={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    p: 3,
+                    borderRadius: 2,
                     width: '100%',
                     color: 'text.primary'
                 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 3, justifyContent: 'center' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, justifyContent: 'center' }}>
                         <PersonAdd sx={{ mr: 1, color: 'primary.main' }} />
-                        <Typography component="h2" variant="h5" color="primary.main" fontWeight="bold">
+                        <Typography component="h2" variant="h6" color="primary.main" fontWeight="bold">
                             Create Account
                         </Typography>
                     </Box>
@@ -148,20 +151,37 @@ export default function SignupPage() {
                                 disabled={isLoading}
                             />
                         </Box>
+                        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 2, mb: 2 }}>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                disabled={isLoading}
+                                sx={{ mb: 2 }}
+                            />
 
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            disabled={isLoading}
-                            sx={{ mb: 2 }}
-                        />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="dateOfBirth"
+                                label="Date of Birth"
+                                name="dateOfBirth"
+                                type="date"
+                                value={formData.dateOfBirth}
+                                onChange={handleChange}
+                                disabled={isLoading}
+                                InputLabelProps={{ shrink: true }}
+                                sx={{ mb: 2 }}
+                            />
+                        </Box>
+
 
                         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 2, mb: 2 }}>
                             <TextField
@@ -241,45 +261,29 @@ export default function SignupPage() {
                                 <MenuItem value="admin">Admin</MenuItem>
                             </TextField>
                         </Box>
-
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="dateOfBirth"
-                            label="Date of Birth"
-                            name="dateOfBirth"
-                            type="date"
-                            value={formData.dateOfBirth}
-                            onChange={handleChange}
-                            disabled={isLoading}
-                            InputLabelProps={{ shrink: true }}
-                            sx={{ mb: 2 }}
-                        />
-
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ 
-                                mt: 3, 
-                                mb: 2, 
-                                py: 1.5,
+                            sx={{
+                                mt: 2,
+                                mb: 2,
+                                py: 1.2,
                                 background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
                                 fontWeight: 'bold'
                             }}
                             disabled={isLoading}
                         >
-                            {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Create Account'}
+                            {isLoading ? <CircularProgress size={22} color="inherit" /> : 'Create Account'}
                         </Button>
 
                         <Box textAlign="center">
                             <Typography variant="body2">
                                 Already have an account?{' '}
-                                <Link 
-                                    to="/login" 
-                                    style={{ 
-                                        color: '#1976d2', 
+                                <Link
+                                    to="/login"
+                                    style={{
+                                        color: '#1976d2',
                                         textDecoration: 'none',
                                         fontWeight: 'bold'
                                     }}
@@ -293,4 +297,5 @@ export default function SignupPage() {
             </Paper>
         </Container>
     );
+
 }
