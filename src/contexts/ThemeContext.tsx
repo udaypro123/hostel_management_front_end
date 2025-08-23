@@ -4,15 +4,22 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import type { Theme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-export type ThemeMode = 'light' | 'dark' | 'blue' | 'green' | 'purple' | 'orange';
+export type ThemeMode = 'light' | 'dark';
+
+interface CustomColors {
+  primary: string;
+  secondary: string;
+  background: string;
+}
 
 interface ThemeContextType {
   themeMode: ThemeMode;
   setThemeMode: (mode: ThemeMode) => void;
+  setCustomColors: (colors: CustomColors) => void;
   theme: Theme;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const useTheme = () => {
   const context = useContext(ThemeContext);
@@ -173,8 +180,37 @@ export const CustomThemeProvider: React.FC<CustomThemeProviderProps> = ({ childr
     return (savedTheme as ThemeMode) || 'light';
   });
 
+  const [customColors, setCustomColors] = useState<CustomColors>(() => {
+    const savedColors = localStorage.getItem('themeColors');
+    return savedColors ? JSON.parse(savedColors) : {
+      primary: '#1976d2',
+      secondary: '#dc004e',
+      background: '#f5f5f5'
+    };
+  });
+
+  useEffect(() => {
+    localStorage.setItem('themeColors', JSON.stringify(customColors));
+  }, [customColors]);
+
   const theme = createTheme({
-    ...themeConfigs[themeMode],
+    palette: {
+      mode: themeMode,
+      primary: {
+        main: customColors.primary,
+        light: customColors.primary + '99',
+        dark: customColors.primary + 'dd',
+      },
+      secondary: {
+        main: customColors.secondary,
+        light: customColors.secondary + '99',
+        dark: customColors.secondary + 'dd',
+      },
+      background: {
+        default: themeMode === 'light' ? customColors.background : '#121212',
+        paper: themeMode === 'light' ? '#ffffff' : '#1e1e1e',
+      },
+    },
     typography: {
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       h1: {
@@ -238,7 +274,7 @@ export const CustomThemeProvider: React.FC<CustomThemeProviderProps> = ({ childr
   }, [themeMode]);
 
   return (
-    <ThemeContext.Provider value={{ themeMode, setThemeMode, theme }}>
+    <ThemeContext.Provider value={{ themeMode, setThemeMode, setCustomColors, theme }}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {children}

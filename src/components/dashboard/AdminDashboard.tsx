@@ -60,9 +60,9 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
   const [openDeleteModel, setOpenDeleteModel] = useState<boolean>(false);
   const [deleteAnnouncementID, setDeleteAnnouncementID] = useState<string>("");
 
-  let data = localStorage.getItem('user') || '{}';
   const token = localStorage.getItem('token');
   console.log('Sending token:', token);
+  let data = localStorage.getItem('user') || '{}';
   const user = JSON.parse(data);
   console.log('User data:', user);
 
@@ -101,7 +101,7 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
           description: item?.description,
           hostelName: item?.hostel?.hostelName,
           document: item?.document,
-          solution: item?.solution ||'N/A',
+          solution: item?.solution || 'N/A',
           status: item?.status || 'pending',
           _id: item?._id,
           hostelId: item?.hostel?._id,
@@ -395,8 +395,8 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
               value={hostels.length || 0}
               icon={<Home />}
               color={theme.palette.primary.main}
-              boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
-              border={` 1px solid rgba(2, 10, 225, 0.92)`}
+              boxShadow={`${theme.palette.primary.main} 2px 2px 1px 0px`}
+              border={` 1px solid ${theme.palette.primary.main}`}
             // subtitle={`${stats?.activeHostels || 0} active`}
             />
           </Box>
@@ -408,9 +408,9 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
               title="Total Capacity"
               value={totalCapacity || 0}
               icon={<People />}
-              color={theme.palette.success.main}
-              boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
-              border={` 1px solid rgba(2, 10, 225, 0.92)`}
+              color={theme.palette.primary.main}
+              boxShadow={`${theme.palette.primary.main} 2px 2px 1px 0px`}
+              border={` 1px solid ${theme.palette.primary.main}`}
             // subtitle={`${stats?.totalOccupancy || 0} occupied`}
             // progress={stats?.averageOccupancyRate || 0}
             />
@@ -423,9 +423,9 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
               title="Total Wardens"
               value={wardens?.length || 0}
               icon={<Face2Icon />}
-              color={theme.palette.warning.main}
-              boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
-              border={` 1px solid rgba(2, 10, 225, 0.92)`}
+              color={theme.palette.primary.main}
+              boxShadow={`${theme.palette.primary.main} 2px 2px 1px 0px`}
+              border={` 1px solid ${theme.palette.primary.main}`}
             // progress={stats?.averageOccupancyRate || 0}
             />
           </Box>
@@ -436,9 +436,9 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
               title="Total Students"
               value={students?.length || 0}
               icon={<Diversity1Icon />}
-              color={theme.palette.info.main}
-              boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
-              border={` 1px solid rgba(2, 10, 225, 0.92)`}
+              color={theme.palette.primary.main}
+              boxShadow={`${theme.palette.primary.main} 2px 2px 1px 0px`}
+              border={` 1px solid ${theme.palette.primary.main}`}
             // subtitle="From current occupancy"
             />
           </Box>
@@ -449,9 +449,9 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
               title="Total Rooms"
               value={rooms?.length || 0}
               icon={<MapsHomeWorkIcon />}
-              color={theme.palette.success.light}
-              boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
-              border={` 1px solid rgba(2, 10, 225, 0.92)`}
+              color={theme.palette.primary.main}
+              boxShadow={`${theme.palette.primary.main} 2px 2px 1px 0px`}
+              border={` 1px solid ${theme.palette.primary.main}`}
             // subtitle="From current occupancy"
             />
           </Box>

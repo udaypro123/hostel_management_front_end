@@ -29,7 +29,7 @@ export const StatCard: React.FC<{
     >
       <CardContent>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2}}>
-          <Avatar sx={{ bgcolor: color, width: 56, height: 56 }}>
+          <Avatar sx={{ bgcolor: color, width: 56, height: 56 , color:"white" }}>
             {icon}
           </Avatar>
           <Box sx={{ textAlign: 'right' }}>

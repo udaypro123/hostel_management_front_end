@@ -276,8 +276,8 @@ const StudentDashboard: React.FC<HostelDashboardProps> = ({ }) => {
                             value={hostels?.hostelId?.hostelName || "-"}
                             icon={<Home />}
                             color={theme.palette.primary.main}
-                            boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
-                            border={` 1px solid rgba(2, 10, 225, 0.92)`}
+                            boxShadow={`${theme.palette.primary.main} 2px 2px 1px 0px`}
+                            border={` 1px solid ${theme.palette.primary.main}`}
                         />
                     </Box>
                 </Fade>
@@ -289,8 +289,8 @@ const StudentDashboard: React.FC<HostelDashboardProps> = ({ }) => {
                             value={hostels?.roomId?.roomNumber || "Not Assign"}
                             icon={<MeetingRoomIcon />}
                             color={theme.palette.success.main}
-                            boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
-                            border={` 1px solid rgba(2, 10, 225, 0.92)`}
+                            boxShadow={`${theme.palette.primary.main} 2px 2px 1px 0px`}
+                            border={` 1px solid ${theme.palette.primary.main}`}
                         // subtitle={`${stats?.totalOccupancy || 0} occupied`}
                         //   progress={stats?.averageOccupancyRate || 0}
                         />
@@ -304,8 +304,8 @@ const StudentDashboard: React.FC<HostelDashboardProps> = ({ }) => {
                             value={hostels?.hostelId?.wardenName}
                             icon={<People />}
                             color={theme.palette.warning.main}
-                            boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
-                            border={` 1px solid rgba(2, 10, 225, 0.92)`}
+                            boxShadow={`${theme.palette.primary.main} 2px 2px 1px 0px`}
+                            border={` 1px solid ${theme.palette.primary.main}`}
                         />
                     </Box>
                 </Fade>
@@ -316,8 +316,8 @@ const StudentDashboard: React.FC<HostelDashboardProps> = ({ }) => {
                             value={hostels?.roomId?.rent || 0}
                             icon={<MonetizationOnIcon />}
                             color={theme.palette.info.main}
-                            boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
-                            border={` 1px solid rgba(2, 10, 225, 0.92)`}
+                            boxShadow={`${theme.palette.primary.main} 2px 2px 1px 0px`}
+                            border={` 1px solid ${theme.palette.primary.main}`}
                             progress={
                                 Math.min(
                                     100,

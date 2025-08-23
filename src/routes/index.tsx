@@ -36,6 +36,7 @@ import Chatbot from '../chatBot/chatBot';
 import RequestDashboard from '../components/modules/requests/RequestDashboard';
 import AddRequest from '../components/modules/requests/CreateRequest';
 import RequestDetailsPage from '../components/modules/requests/viewRequest';
+import UserProfile from '../pages/UserProfile';
 
 // Loading Component
 const Loading = () => (
@@ -80,7 +81,8 @@ export default function AppRoutes() {
                 {/* Public Routes */}
                 <Route path="/login" element={<PublicRoute> <LoginPage /> </PublicRoute>} />
                 <Route path="/signup" element={<PublicRoute> <SignupPage /> </PublicRoute>} />
-
+                <Route path="/userProfile" element={<ProtectedRoute>  <UserProfile />   </ProtectedRoute>} />
+                
                 {/* chatbot Routes */}
                 <Route path="/chatbot" element={<ProtectedRoute>  <Chatbot open={isChatbotOpen} handleclose={handleclose} />   </ProtectedRoute>}
                 />

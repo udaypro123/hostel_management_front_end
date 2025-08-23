@@ -303,8 +303,8 @@ const WardenDashboard: React.FC<HostelDashboardProps> = ({ }) => {
               value={wardendata?.hostelName || ""}
               icon={<Home />}
               color={theme.palette.primary.main}
-              boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
-              border={` 1px solid rgba(2, 10, 225, 0.92)`}
+              boxShadow={`${theme.palette.primary.main} 2px 2px 1px 0px`}
+              border={` 1px solid ${theme.palette.primary.main}`}
             />
           </Box>
         </Fade>
@@ -316,8 +316,8 @@ const WardenDashboard: React.FC<HostelDashboardProps> = ({ }) => {
               value={wardendata?.type || ""}
               icon={<Man3Icon />}
               color={theme.palette.primary.light}
-              boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
-              border={` 1px solid rgba(2, 10, 225, 0.92)`}
+              boxShadow={`${theme.palette.primary.main} 2px 2px 1px 0px`}
+              border={` 1px solid ${theme.palette.primary.main}`}
             />
           </Box>
         </Fade>
@@ -328,8 +328,8 @@ const WardenDashboard: React.FC<HostelDashboardProps> = ({ }) => {
               value={wardendata?.rooms?.length || 0}
               icon={<AddHomeIcon />}
               color={theme.palette.success.light}
-              boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
-              border={` 1px solid rgba(2, 10, 225, 0.92)`}
+              boxShadow={`${theme.palette.primary.main} 2px 2px 1px 0px`}
+              border={` 1px solid ${theme.palette.primary.main}`}
             />
           </Box>
         </Fade>
@@ -340,8 +340,8 @@ const WardenDashboard: React.FC<HostelDashboardProps> = ({ }) => {
               value={studentCount || 0}
               icon={<GroupIcon />}
               color={theme.palette.warning.dark}
-              boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
-              border={` 1px solid rgba(2, 10, 225, 0.92)`}
+              boxShadow={`${theme.palette.primary.main} 2px 2px 1px 0px`}
+              border={` 1px solid ${theme.palette.primary.main}`}
             />
           </Box>
         </Fade>

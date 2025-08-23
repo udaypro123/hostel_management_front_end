@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { ThemeContext } from '../../contexts/ThemeContext';
+import { ColorPicker } from '../theme/ColorPicker';
 import {
   AppBar,
   Avatar,
   Box,
+  Button,
   CssBaseline,
-  Drawer,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
   IconButton,
+  Drawer,
   List,
   ListItem,
   ListItemButton,
@@ -77,8 +84,13 @@ interface SimpleLayoutProps {
 const SimpleLayout: React.FC<SimpleLayoutProps> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const muiTheme = useTheme();
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
+  const { themeMode, setCustomColors } = useContext<any>(ThemeContext);
+  const [themeDialogOpen, setThemeDialogOpen] = useState(false);
+
+  const openThemeDialog = () => setThemeDialogOpen(true);
+  const closeThemeDialog = () => setThemeDialogOpen(false);
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -114,6 +126,12 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({ children }) => {
     handleProfileMenuClose();
   };
 
+  const handleProfile = () => {
+    handleProfileMenuClose();
+    navigate('/userProfile');
+    setIsDrawerOpen(false)
+  };
+
   const menuItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard', role: ["admin", 'student', 'warden'] },
     { text: 'Payment', icon: <PaymentIcon />, path: '/payment', role: ["admin", 'student', 'warden'] },
@@ -123,7 +141,7 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({ children }) => {
     { text: 'Rooms', icon: <RoomIcon />, path: '/rooms', role: ["admin"] },
     { text: 'Degrees', icon: <AccountBalanceIcon />, path: '/degrees', role: ["admin"] },
     { text: 'Announcements', icon: <CampaignIcon />, path: '/announcements', role: ["admin", "warden"] },
-    { text: 'Request', icon: <HelpCenterIcon />, path: '/request', role: ["admin",'student', 'warden'] },
+    { text: 'Request', icon: <HelpCenterIcon />, path: '/request', role: ["admin", 'student', 'warden'] },
     // { text: 'AI ChatBot', icon: <PsychologyIcon />, path: '/chatbot', role: ['admin', 'student', 'warden'] },
   ]?.filter((item: any) => item.role?.includes(user.role));
 
@@ -261,13 +279,13 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({ children }) => {
           {/* <AccountCircle sx={{ mr: 1 }} /> */}
           {user?.fullName || 'Profile'}
         </MenuItem>
-        <MenuItem onClick={handleProfileMenuClose} sx={{ marginTop: 2 }} >
+        <MenuItem onClick={handleProfile} sx={{ marginTop: 2 }} >
           <AccountCircleIcon sx={{ mr: 1 }} />
           View Profile
         </MenuItem>
-        <MenuItem onClick={handleProfileMenuClose} sx={{ marginTop: 1 }}>
-          <Brightness4Icon sx={{ mr: 1 }} />
-          DarkMode
+        <MenuItem onClick={() => { openThemeDialog(); handleProfileMenuClose(); }} sx={{ display: 'flex', alignItems: 'center' }}>
+          <Brightness4Icon sx={{ mr: 1, marginTop: 1 }} />
+          Change Theme
         </MenuItem>
         <MenuItem onClick={handleProfileMenuClose} sx={{ marginTop: 1 }}>
           <Settings sx={{ mr: 1 }} />
@@ -279,6 +297,24 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({ children }) => {
           Logout
         </MenuItem>
       </Menu>
+
+      {/* Theme selection dialog */}
+      <Dialog open={themeDialogOpen} onClose={closeThemeDialog} fullWidth maxWidth="sm">
+        <DialogTitle>Change Theme</DialogTitle>
+        <DialogContent>
+          <Typography variant="body2" sx={{ mb: 1 }}>Select a color combination to apply across the app:</Typography>
+          <ColorPicker
+            currentTheme={themeMode}
+            onThemeChange={(_mode: any, colors: any) => {
+              setCustomColors(colors);
+              closeThemeDialog();
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeThemeDialog}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
 
 
       <Box
