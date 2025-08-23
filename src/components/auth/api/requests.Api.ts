@@ -1,9 +1,9 @@
 import axios from 'axios';
 import {
-    CREATE_ANNOUNCEMENT,
-    DELETE_ANNOUNCEMENT,
-    GET_ANNOUNCEMENT,
-    UPDATE_ANNOUNCEMENT,
+    CREATE_REQUEST,
+    DELETE_REQUEST,
+    GET_REQUESTS,
+    UPDATE_REQUEST,
 } from './routes';
 
 const apiClient = axios.create({
@@ -37,11 +37,11 @@ export interface ApiResponse<T> {
 }
 
 
-export const createAnnouncement = async (data: any): Promise<ApiResponse<any>> => {
+export const createRequest = async (data: any): Promise<ApiResponse<any>> => {
     console.log("apicdscmsdcsd",data )
     try {
 
-        const response: any = await apiClient.post(CREATE_ANNOUNCEMENT, data)
+        const response: any = await apiClient.post(CREATE_REQUEST, data)
         return response.data
 
     } catch (error) {
@@ -53,10 +53,10 @@ export const createAnnouncement = async (data: any): Promise<ApiResponse<any>> =
 
 }
 
-export const updateAnnouncement= async (data: any): Promise<ApiResponse<any>> => {
+export const updateRequest = async (data: any): Promise<ApiResponse<any>> => {
     try {
 
-        const response: any = await apiClient.put(UPDATE_ANNOUNCEMENT, data)
+        const response: any = await apiClient.put(UPDATE_REQUEST, data)
         return response.data
 
     } catch (error) {
@@ -68,9 +68,9 @@ export const updateAnnouncement= async (data: any): Promise<ApiResponse<any>> =>
 
 }
 
-export const getAnnouncement = async (): Promise<ApiResponse<[]>> => {
+export const getRequests = async (): Promise<ApiResponse<[]>> => {
     try {
-        const response = await apiClient.get(GET_ANNOUNCEMENT);
+        const response = await apiClient.get(GET_REQUESTS);
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -81,10 +81,10 @@ export const getAnnouncement = async (): Promise<ApiResponse<[]>> => {
 };
 
 
-export const deleteAnnouncement = async (studentId: string): Promise<ApiResponse<any>> => {
+export const deleteRequest = async (requestId: string): Promise<ApiResponse<any>> => {
     try {
-        const response = await apiClient.delete(DELETE_ANNOUNCEMENT, {
-            data: { studentId }
+        const response = await apiClient.delete(DELETE_REQUEST, {
+            data: { requestId }
         });
         return response.data;
     } catch (error) {

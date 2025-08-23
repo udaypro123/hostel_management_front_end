@@ -52,6 +52,14 @@ export const UPDATE_ANNOUNCEMENT= "/api/announcement/updateAnouncement"
 export const GET_ANNOUNCEMENT= "/api/announcement/getAllAnouncement"
 export const DELETE_ANNOUNCEMENT= "/api/announcement/deleteAnouncement"
 
+// REQUEST ROUTES
+
+export const CREATE_REQUEST= "/api/requests/createRequest"
+export const UPDATE_REQUEST= "/api/requests/updateRequest"
+export const GET_REQUESTS= "/api/requests/getAllRequests"
+export const DELETE_REQUEST= "/api/requests/deleteRequest"
+
 // CHATBOT API
 
 export const CHATBOT_API= '/api/ai/ask'
+export const GET_AI_CHAT= '/api/ai/getAIchat'

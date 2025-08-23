@@ -4,30 +4,31 @@ import { Box } from "@mui/system";
 
 
 export const StatCard: React.FC<{
-    title: string;
-    value: string | number;
-    icon: React.ReactElement;
-    color: string;
-    // subtitle?: string;
-    progress?: number;
-  }> = ({ title, value, icon, color, progress }) => {
-    // const theme:any = useTheme();
+  title: string;
+  value: string | number;
+  icon: React.ReactElement;
+  color: string;
+  border?: any;
+  progress?: number;
+  boxShadow?: any;
+}> = ({ title, value, icon, color, progress, boxShadow, border }) => {
+  // const theme:any = useTheme();
 
-    return (
-      <Card
-        sx={{
-          height: '100%',
-          background: `white`,
-          // border: `1px solid ${color}33`,
-          transition: 'all 0.3s ease',
-          '&:hover': {
-            transform: 'translateY(1px)',
-            // boxShadow: theme.shadows['5'],
-          }
-        }}
-      >
+  return (
+    <Card
+      sx={{
+        height: '100%',
+        background: `white`,
+        border: border,
+        transition: 'all 0.3s ease',
+        boxShadow: boxShadow,
+        '&:hover': {
+          transform: 'translateY(1px)',
+        }
+      }}
+    >
       <CardContent>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2}}>
           <Avatar sx={{ bgcolor: color, width: 56, height: 56 }}>
             {icon}
           </Avatar>
@@ -57,4 +58,5 @@ export const StatCard: React.FC<{
         )}
       </CardContent>
     </Card>
-    )};
+  )
+};

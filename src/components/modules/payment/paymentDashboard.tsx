@@ -148,8 +148,8 @@ const PaymentDashboard: React.FC<HostelDashboardProps> = ({ }) => {
             let filterdata: any;
             if (user.role !== "admin") {
                 filterdata = data?.data?.filter((item: any) => item?.studentId?._id == user?.id)
-            }else{
-                filterdata=data?.data
+            } else {
+                filterdata = data?.data
             }
             let amount: any = 0
             const rows = filterdata?.map((item: any, index: number) => {
@@ -271,6 +271,8 @@ const PaymentDashboard: React.FC<HostelDashboardProps> = ({ }) => {
                                     value={hostels?.hostelId?.hostelName || "-"}
                                     icon={<Home />}
                                     color={theme.palette.primary.main}
+                                    boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
+                                    border={` 1px solid rgba(2, 10, 225, 0.92)`}
                                 // subtitle={`${stats?.activeHostels || 0} active`}
                                 />
                             </Box>
@@ -283,6 +285,8 @@ const PaymentDashboard: React.FC<HostelDashboardProps> = ({ }) => {
                                     value={hostels?.roomId?.roomNumber || "Not Assign"}
                                     icon={<MeetingRoomIcon />}
                                     color={theme.palette.success.main}
+                                    boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
+                                    border={` 1px solid rgba(2, 10, 225, 0.92)`}
                                 // subtitle={`${stats?.totalOccupancy || 0} occupied`}
                                 //   progress={stats?.averageOccupancyRate || 0}
                                 />
@@ -296,6 +300,8 @@ const PaymentDashboard: React.FC<HostelDashboardProps> = ({ }) => {
                                     value={hostels?.hostelId?.wardenName}
                                     icon={<People />}
                                     color={theme.palette.warning.main}
+                                    boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
+                                    border={` 1px solid rgba(2, 10, 225, 0.92)`}
                                 //   progress={stats?.averageOccupancyRate || 0}
                                 />
                             </Box>
@@ -307,6 +313,8 @@ const PaymentDashboard: React.FC<HostelDashboardProps> = ({ }) => {
                                     value={hostels?.roomId?.rent || 0}
                                     icon={<MonetizationOnIcon />}
                                     color={theme.palette.info.main}
+                                    boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
+                                    border={` 1px solid rgba(2, 10, 225, 0.92)`}
                                     progress={
                                         Math.min(
                                             100,

@@ -123,7 +123,7 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({ children }) => {
     { text: 'Rooms', icon: <RoomIcon />, path: '/rooms', role: ["admin"] },
     { text: 'Degrees', icon: <AccountBalanceIcon />, path: '/degrees', role: ["admin"] },
     { text: 'Announcements', icon: <CampaignIcon />, path: '/announcements', role: ["admin", "warden"] },
-    { text: 'Request', icon: <HelpCenterIcon />, path: '/request', role: ['student', 'warden'] },
+    { text: 'Request', icon: <HelpCenterIcon />, path: '/request', role: ["admin",'student', 'warden'] },
     // { text: 'AI ChatBot', icon: <PsychologyIcon />, path: '/chatbot', role: ['admin', 'student', 'warden'] },
   ]?.filter((item: any) => item.role?.includes(user.role));
 
@@ -344,9 +344,9 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({ children }) => {
           justifyContent: "center",
           alignItems: "center",
           marginTop: 5,
-          position:"fixed",
-          bottom:25,
-          right:30,
+          position: "fixed",
+          bottom: 25,
+          right: 30,
         }}
       >
         <Box
@@ -355,7 +355,7 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({ children }) => {
             borderRadius: "50%",
             cursor: "pointer",
             animation: `${borderPulse} 1.1s infinite ease-in-out`,
-            padding:.5
+            padding: .5
           }}
         >
           🤖

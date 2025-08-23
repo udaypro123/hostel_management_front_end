@@ -52,9 +52,9 @@ interface HostelLoaderProps {
 
 export const HostelLoader: React.FC<HostelLoaderProps> = ({ }) => {
     return (
-        <LoaderContainer>
+        <LoaderContainer sx={{ margin: '10% auto'}}>
 
-            <Box sx={{ marginBottom: 2 }}>
+            <Box sx={{ marginBottom: 2 , }}>
                 <img
                     src={hostel}
                     alt="Loading"

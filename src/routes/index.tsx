@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 
 // Layout Components
 import SimpleLayout from '../components/layout/SimpleLayout';
@@ -33,6 +33,9 @@ import PaymentDetailsPage from '../components/modules/payment/viewPaymentDetails
 import AddAnnouncement from '../components/modules/announcement/addAnnouncement';
 import AnnouncementDetailsPage from '../components/modules/announcement/viewAnnouncement';
 import Chatbot from '../chatBot/chatBot';
+import RequestDashboard from '../components/modules/requests/RequestDashboard';
+import AddRequest from '../components/modules/requests/CreateRequest';
+import RequestDetailsPage from '../components/modules/requests/viewRequest';
 
 // Loading Component
 const Loading = () => (
@@ -65,6 +68,12 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default function AppRoutes() {
+
+    const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+
+    const handleclose = async () => {
+        setIsChatbotOpen(false)
+    }
     return (
         <Suspense fallback={<Loading />}>
             <Routes>
@@ -73,7 +82,7 @@ export default function AppRoutes() {
                 <Route path="/signup" element={<PublicRoute> <SignupPage /> </PublicRoute>} />
 
                 {/* chatbot Routes */}
-                <Route path="/chatbot" element={<ProtectedRoute>  <Chatbot />   </ProtectedRoute>}
+                <Route path="/chatbot" element={<ProtectedRoute>  <Chatbot open={isChatbotOpen} handleclose={handleclose} />   </ProtectedRoute>}
                 />
 
                 {/* Protected Routes */}
@@ -155,6 +164,14 @@ export default function AppRoutes() {
                 <Route path="/addAnnouncement" element={<ProtectedRoute> <AddAnnouncement />
                 </ProtectedRoute>} />
                 <Route path="/viewAnnouncement" element={<ProtectedRoute> <AnnouncementDetailsPage />
+                </ProtectedRoute>} />
+
+                {/* requests Routes */}
+                <Route path="/request" element={<ProtectedRoute> <RequestDashboard />
+                </ProtectedRoute>} />
+                <Route path="/addRequest" element={<ProtectedRoute> <AddRequest />
+                </ProtectedRoute>} />
+                <Route path="/viewRequest" element={<ProtectedRoute> <RequestDetailsPage />
                 </ProtectedRoute>} />
 
                 {/* degree route */}

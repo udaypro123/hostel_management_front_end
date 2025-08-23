@@ -32,6 +32,7 @@ import {
   Delete as DeleteIcon,
 } from '@mui/icons-material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { getRequests } from '../auth/api/requests.Api';
 
 interface HostelDashboardProps {
   onViewAllHostels?: () => void;
@@ -54,7 +55,7 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
   const [students, setStudents] = useState<any[]>([]);
   const [rooms, setRooms] = useState<any[]>([]);
   const [announcement, setAnnouncement] = useState<any[]>([]);
-  const [requests, setAllRequest] = useState<any[]>([]);
+  const [requestdata, setRequestdata] = useState<any>([]);
   const paginationModel = { page: 0, pageSize: 10 }
   const [openDeleteModel, setOpenDeleteModel] = useState<boolean>(false);
   const [deleteAnnouncementID, setDeleteAnnouncementID] = useState<string>("");
@@ -79,13 +80,44 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
       console.log("totalcapicity", totalcapicity)
       setTotalCapacity(totalcapicity)
       setHostels(response.data);
-      setAllRequest([]);
     } catch (error) {
       console.error('Error fetching hostels:', error);
     } finally {
       setLoading(false);
     }
   };
+
+
+  const fetchRequest = async () => {
+    try {
+      setLoading(true)
+      const requestdata = await getRequests()
+      console.log("requestdata", requestdata)
+      let obj: any = [];
+      requestdata?.data?.map((item: any, index: number) => {
+        let newobj = {
+          id: index + 1,
+          title: item?.title,
+          description: item?.description,
+          hostelName: item?.hostel?.hostelName,
+          document: item?.document,
+          solution: item?.solution ||'N/A',
+          status: item?.status || 'pending',
+          _id: item?._id,
+          hostelId: item?.hostel?._id,
+        }
+        console.log("newobj", newobj)
+        obj.push(newobj)
+      })
+      console.log("newobjnewobj", obj)
+      setRequestdata(obj)
+      setLoading(false)
+    } catch (error) {
+      enqueueSnackbar("Error while fetching Request", { variant: "error" })
+      setLoading(false)
+    }
+  }
+
 
   const fetchWardens = async () => {
     try {
@@ -172,6 +204,7 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
     fetchHostels();
     fetchWardens();
     fetchStudents();
+    fetchRequest()
     fetchRooms(paginationModel.page, paginationModel.pageSize);
     fetchAnnouncement()
   }, []);
@@ -223,6 +256,11 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
     // Option 2: Use React Router with state (when you setup proper routing)
     navigate(route, { state: { announcementdata } });
 
+  };
+
+  const handaleViewRequest = (route: string, requestdata?: any) => {
+    console.log('Navigating to:', route, 'with data:', requestdata);
+    navigate(route, { state: { requestdata } });
   };
 
 
@@ -289,6 +327,33 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
     },
   ];
 
+  const columnsRequest = [
+    { field: 'title', headerName: 'Title', flex: 1 },
+    { field: 'hostelName', headerName: 'Hostel Name', flex: 1 },
+    { field: 'description', headerName: 'Description', flex: 1 },
+    { field: 'status', headerName: 'Status', flex: 1 },
+    { field: 'solution', headerName: 'Resolution', flex: 1 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      flex: 1,
+      renderCell: (params: any) => (
+        <Box sx={{ display: 'flex', gap: 1 }}>
+
+          <VisibilityIcon
+            fontSize="small"
+            color="primary"
+            sx={{ cursor: 'pointer' }}
+            onClick={() => {
+              console.log('Hostel data:', params.row);
+              handaleViewRequest('/viewRequest', params.row);
+            }}
+          />
+        </Box>
+      ),
+    },
+  ];
+
 
   const closeModel = async () => {
     setOpenDeleteModel(false);
@@ -330,6 +395,8 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
               value={hostels.length || 0}
               icon={<Home />}
               color={theme.palette.primary.main}
+              boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
+              border={` 1px solid rgba(2, 10, 225, 0.92)`}
             // subtitle={`${stats?.activeHostels || 0} active`}
             />
           </Box>
@@ -342,6 +409,8 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
               value={totalCapacity || 0}
               icon={<People />}
               color={theme.palette.success.main}
+              boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
+              border={` 1px solid rgba(2, 10, 225, 0.92)`}
             // subtitle={`${stats?.totalOccupancy || 0} occupied`}
             // progress={stats?.averageOccupancyRate || 0}
             />
@@ -355,6 +424,8 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
               value={wardens?.length || 0}
               icon={<Face2Icon />}
               color={theme.palette.warning.main}
+              boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
+              border={` 1px solid rgba(2, 10, 225, 0.92)`}
             // progress={stats?.averageOccupancyRate || 0}
             />
           </Box>
@@ -366,6 +437,8 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
               value={students?.length || 0}
               icon={<Diversity1Icon />}
               color={theme.palette.info.main}
+              boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
+              border={` 1px solid rgba(2, 10, 225, 0.92)`}
             // subtitle="From current occupancy"
             />
           </Box>
@@ -377,6 +450,8 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
               value={rooms?.length || 0}
               icon={<MapsHomeWorkIcon />}
               color={theme.palette.success.light}
+              boxShadow={`rgba(2, 10, 225, 0.92) 2px 2px 1px 0px`}
+              border={` 1px solid rgba(2, 10, 225, 0.92)`}
             // subtitle="From current occupancy"
             />
           </Box>
@@ -446,21 +521,23 @@ const AdminDashboard: React.FC<HostelDashboardProps> = ({
       </Box>
 
       <Box sx={{ backgroundColor: 'white', mt: 5 }}>
-        <Box sx={{ mb: 2, pt: 2, pl: 1 }}>
-          <Typography variant="h5" fontWeight="bold" sx={{ mb: 2 }}>
-            All Requests
-          </Typography>
-        </Box>
         {
-          requests?.length > 0 &&
-          <Box sx={{ height: '100%', width: '100%' }}>
-            <DataGrid
-              rows={announcement}
-              columns={columns}
-            />
+          requestdata?.length > 0 && <Box sx={{ backgroundColor: 'white', marginTop: 5 }}>
+            <Box sx={{ mb: 2, pt: 2, pl: 1 }}>
+              <Typography variant="h5" fontWeight="bold" sx={{ mb: 2 }}>
+                All Requests
+              </Typography>
+            </Box>
+
+            <Box sx={{ height: '100%', width: '100%' }}>
+              <DataGrid
+                rows={requestdata}
+                columns={columnsRequest}
+              />
+            </Box>
           </Box>
         }
-        {!loading && requests?.length === 0 && (
+        {!loading && requestdata?.length === 0 && (
           <Paper
             sx={{
               p: 8,
